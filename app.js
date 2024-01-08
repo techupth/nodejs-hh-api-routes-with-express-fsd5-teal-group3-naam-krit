@@ -2,7 +2,7 @@ import Express from "express";
 import { assignments } from "./data/assignments.js";
 
 const app = Express();
-const port = 3000;
+const port = 4001;
 
 let assignmentsMockData = assignments;
 
