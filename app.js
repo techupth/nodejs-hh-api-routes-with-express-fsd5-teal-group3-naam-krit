@@ -1,12 +1,15 @@
-import Express from "express";
+import express from "express";
 import { assignments } from "./data/assignments.js";
 import { comments } from "./data/comments.js";
 
-const app = Express();
+const app = express();
 const port = 4001;
 
 let assignmentsMockData = assignments;
 let commentsMockData = comments;
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // ดูข้อมูลทั้งหมด โดยต้องส่ง Query limitมาเป็น Numberไม่เกิน 10 : ใช้ .query
 app.get("/assignments", (req, res) => {
@@ -143,20 +146,18 @@ app.post("/assignments/:assignmentsId/comments", (req, res) => {
   //     ...req.body,
   //   });
 
-  commentsMockData.push({
-    id: commentsMockData[commentsMockData.length - 1].id + 1,
-    assignmentId:
-      commentsMockData[commentsMockData.length - 1].assignmentId + 1,
-    content: commentsMockData[commentsMockData.length - 1].content,
-  });
+  //   commentsMockData.push({
+  //     id: commentsMockData[commentsMockData.length - 1].id + 1,
+  //     assignmentId:
+  //       commentsMockData[commentsMockData.length - 1].assignmentId + 1,
+  //     content: commentsMockData[commentsMockData.length - 1].content,
+  //   });
 
-  return res.json({
-    message: "New comment has been created successfully",
-    data: commentsMockData,
-  });
+  //   return res.json({
+  //     message: "New comment has been created successfully",
+  //     data: commentsMockData,
+  //   });
 
-  /* เฉลยของ hh ก็ยังไม่แสดงข้อมูลอยู่ดี
-  
   let assignmentsIdClient = Number(req.params.assignmentsId);
 
   // สร้าง id ใหม่ให้กับ comment
@@ -164,6 +165,8 @@ app.post("/assignments/:assignmentsId/comments", (req, res) => {
     id: commentsMockData[commentsMockData.length - 1].id + 1,
     ...req.body,
   };
+
+  console.log({ ...req.body });
 
   // Validate ก่อนว่ามี Assignment ให้เพิ่ม Comment หรือไม่
   const hasAssignment = commentsMockData.find((item) => {
@@ -183,7 +186,7 @@ app.post("/assignments/:assignmentsId/comments", (req, res) => {
   return res.json({
     message: `New comment of assignment id ${assignmentsIdClient} has been created successfully`,
     data: commentsMockData,
-  });*/
+  });
 });
 
 app.listen(port, () => {
