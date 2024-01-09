@@ -141,24 +141,17 @@ if(!reg.body){
 app.post("/assignments/:assignmentsId/comments", (req, res) => {
   //   const { assignmentId, content } = req.body;
 
-  //   commentsMockData.push({
-  //     id: commentsMockData[commentsMockData.length - 1].id + 1,
-  //     ...req.body,
-  //   });
+  commentsMockData.push({
+    id: commentsMockData[commentsMockData.length - 1].id + 1,
+    ...req.body,
+  });
 
-  //   commentsMockData.push({
-  //     id: commentsMockData[commentsMockData.length - 1].id + 1,
-  //     assignmentId:
-  //       commentsMockData[commentsMockData.length - 1].assignmentId + 1,
-  //     content: commentsMockData[commentsMockData.length - 1].content,
-  //   });
+  return res.json({
+    message: "New comment has been created successfully",
+    data: commentsMockData,
+  });
 
-  //   return res.json({
-  //     message: "New comment has been created successfully",
-  //     data: commentsMockData,
-  //   });
-
-  let assignmentsIdClient = Number(req.params.assignmentsId);
+  /*let assignmentsIdClient = Number(req.params.assignmentsId);
 
   // สร้าง id ใหม่ให้กับ comment
   const newComments = {
@@ -186,7 +179,7 @@ app.post("/assignments/:assignmentsId/comments", (req, res) => {
   return res.json({
     message: `New comment of assignment id ${assignmentsIdClient} has been created successfully`,
     data: commentsMockData,
-  });
+  });*/
 });
 
 app.listen(port, () => {
